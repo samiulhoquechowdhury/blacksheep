@@ -1,6 +1,6 @@
 // ============================================================
 //  App.jsx  —  Blacksheep Creatives · Siliguri Underdog's Cup
-//  React + Vite ready.  See README.md for setup steps.
+//  React + Vite ready. Fully responsive for all screen sizes.
 // ============================================================
 
 import { useState, useEffect } from "react";
@@ -8,63 +8,13 @@ import "./App.css";
 
 // ── Sub-components ───────────────────────────────────────────
 
-const PlaceholderImage = ({ label, style = {} }) => (
-  <div
-    style={{
-      position: "relative",
-      overflow: "hidden",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      background:
-        "linear-gradient(135deg,#8A244B22 0%,#111F3588 50%,#F6304911 100%)",
-      border: "1px solid #F6304930",
-      minHeight: "200px",
-      ...style,
-    }}
-  >
-    <div
-      style={{
-        textAlign: "center",
-        padding: "1.5rem",
-        position: "relative",
-        zIndex: 1,
-      }}
-    >
-      <i
-        className="fa-solid fa-camera"
-        style={{
-          fontSize: "2rem",
-          color: "#F63049",
-          opacity: 0.4,
-          display: "block",
-          marginBottom: "0.75rem",
-        }}
-      />
-      <p
-        style={{
-          color: "#F63049",
-          opacity: 0.6,
-          fontSize: "0.7rem",
-          fontFamily: "'Rajdhani', sans-serif",
-          letterSpacing: "0.15em",
-          textTransform: "uppercase",
-          margin: 0,
-        }}
-      >
-        {label}
-      </p>
+const PlaceholderImage = ({ label, className = "" }) => (
+  <div className={`placeholder-img ${className}`}>
+    <div className="placeholder-inner">
+      <i className="fa-solid fa-camera placeholder-icon" />
+      <p className="placeholder-label">{label}</p>
     </div>
-    <div
-      style={{
-        position: "absolute",
-        inset: 0,
-        opacity: 0.05,
-        backgroundImage:
-          "repeating-linear-gradient(45deg,#F63049 0,#F63049 1px,transparent 0,transparent 50%)",
-        backgroundSize: "8px 8px",
-      }}
-    />
+    <div className="placeholder-pattern" />
   </div>
 );
 
@@ -78,42 +28,12 @@ const GlitchText = ({ text }) => {
     return () => clearInterval(iv);
   }, []);
   return (
-    <span
-      style={{
-        position: "relative",
-        display: "inline-block",
-        fontFamily: "'Orbitron', sans-serif",
-      }}
-    >
-      <span style={{ position: "relative", zIndex: 1 }}>{text}</span>
+    <span className="glitch-wrap">
+      <span className="glitch-base">{text}</span>
       {glitch && (
         <>
-          <span
-            style={{
-              position: "absolute",
-              top: 0,
-              left: "2px",
-              color: "#F63049",
-              opacity: 0.8,
-              clipPath: "polygon(0 20%,100% 20%,100% 40%,0 40%)",
-              zIndex: 2,
-            }}
-          >
-            {text}
-          </span>
-          <span
-            style={{
-              position: "absolute",
-              top: 0,
-              left: "-2px",
-              color: "#00ffff",
-              opacity: 0.5,
-              clipPath: "polygon(0 60%,100% 60%,100% 80%,0 80%)",
-              zIndex: 2,
-            }}
-          >
-            {text}
-          </span>
+          <span className="glitch-red">{text}</span>
+          <span className="glitch-cyan">{text}</span>
         </>
       )}
     </span>
@@ -121,163 +41,59 @@ const GlitchText = ({ text }) => {
 };
 
 const StatCard = ({ value, label, faIcon }) => (
-  <div
-    style={{
-      background: "linear-gradient(135deg,#8A244B22,#111F35ee)",
-      border: "1px solid #F6304940",
-      padding: "2rem 1.5rem",
-      clipPath:
-        "polygon(0 0,calc(100% - 16px) 0,100% 16px,100% 100%,16px 100%,0 calc(100% - 16px))",
-      position: "relative",
-      textAlign: "center",
-    }}
-  >
-    <i
-      className={faIcon}
-      style={{
-        fontSize: "1.4rem",
-        color: "#F6304960",
-        marginBottom: "0.75rem",
-        display: "block",
-      }}
-    />
-    <div
-      style={{
-        fontSize: "2.4rem",
-        fontFamily: "'Orbitron', sans-serif",
-        fontWeight: 900,
-        background: "linear-gradient(135deg,#F63049,#D02752)",
-        WebkitBackgroundClip: "text",
-        WebkitTextFillColor: "transparent",
-        lineHeight: 1,
-      }}
-    >
-      {value}
-    </div>
-    <div
-      style={{
-        color: "#aaa",
-        fontSize: "0.65rem",
-        letterSpacing: "0.2em",
-        textTransform: "uppercase",
-        marginTop: "0.5rem",
-        fontFamily: "'Rajdhani', sans-serif",
-        fontWeight: 600,
-      }}
-    >
-      {label}
-    </div>
-    <div
-      style={{
-        position: "absolute",
-        bottom: 0,
-        left: "50%",
-        transform: "translateX(-50%)",
-        width: "40%",
-        height: "2px",
-        background: "linear-gradient(90deg,transparent,#F63049,transparent)",
-      }}
-    />
+  <div className="stat-card">
+    <i className={`${faIcon} stat-icon`} />
+    <div className="stat-value">{value}</div>
+    <div className="stat-label">{label}</div>
+    <div className="stat-line" />
   </div>
 );
 
 const SectionTag = ({ children }) => (
-  <div
-    style={{
-      display: "inline-flex",
-      alignItems: "center",
-      gap: "0.5rem",
-      marginBottom: "0.75rem",
-    }}
-  >
-    <div style={{ width: "2rem", height: "1px", background: "#F63049" }} />
-    <span
-      style={{
-        color: "#F63049",
-        fontSize: "0.65rem",
-        letterSpacing: "0.3em",
-        textTransform: "uppercase",
-        fontFamily: "'Rajdhani', sans-serif",
-        fontWeight: 700,
-      }}
-    >
-      {children}
-    </span>
-    <div style={{ width: "2rem", height: "1px", background: "#F63049" }} />
+  <div className="section-tag">
+    <div className="section-tag-line" />
+    <span className="section-tag-text">{children}</span>
+    <div className="section-tag-line" />
   </div>
 );
 
 const HexIcon = ({ faIcon }) => (
-  <div
-    style={{
-      width: "48px",
-      height: "48px",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      background: "linear-gradient(135deg,#F6304920,#8A244B30)",
-      border: "1px solid #F6304940",
-      clipPath: "polygon(25% 0%,75% 0%,100% 50%,75% 100%,25% 100%,0% 50%)",
-      flexShrink: 0,
-    }}
-  >
-    <i className={faIcon} style={{ color: "#F63049", fontSize: "1.1rem" }} />
+  <div className="hex-icon">
+    <i className={faIcon} />
   </div>
 );
 
 const ContactCard = ({ faIcon, iconColor, label, value, sub }) => (
-  <div
-    className="contact-card"
-    style={{
-      padding: "2rem",
-      textAlign: "center",
-      background: "linear-gradient(135deg,#111F35,#0a1520)",
-      border: "1px solid #F6304920",
-      borderRadius: "4px",
-      cursor: "pointer",
-    }}
-  >
+  <div className="contact-card">
     <div
+      className="contact-icon-wrap"
       style={{
-        width: "56px",
-        height: "56px",
-        borderRadius: "50%",
-        margin: "0 auto 1rem",
         background: `${iconColor}18`,
         border: `1px solid ${iconColor}40`,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
       }}
     >
-      <i className={faIcon} style={{ fontSize: "1.4rem", color: iconColor }} />
+      <i className={faIcon} style={{ color: iconColor }} />
     </div>
+    <div className="contact-label">{label}</div>
+    <div className="contact-value">{value}</div>
+    <div className="contact-sub">{sub}</div>
+  </div>
+);
+
+const EventCard = ({ icon, iconColor, title, value, sub }) => (
+  <div className="evt-card">
     <div
+      className="evt-icon-wrap"
       style={{
-        fontSize: "0.6rem",
-        letterSpacing: "0.2em",
-        color: "#F63049",
-        fontFamily: "'Rajdhani', sans-serif",
-        fontWeight: 700,
-        textTransform: "uppercase",
-        marginBottom: "0.5rem",
+        background: `${iconColor}18`,
+        border: `1px solid ${iconColor}40`,
       }}
     >
-      {label}
+      <i className={icon} style={{ color: iconColor }} />
     </div>
-    <div
-      style={{
-        color: "#e0e0e0",
-        fontWeight: 600,
-        fontSize: "0.85rem",
-        fontFamily: "'Share Tech Mono', monospace",
-        marginBottom: "0.25rem",
-        wordBreak: "break-all",
-      }}
-    >
-      {value}
-    </div>
-    <div style={{ color: "#556", fontSize: "0.7rem" }}>{sub}</div>
+    <div className="evt-label">{title}</div>
+    <div className="evt-value">{value}</div>
+    <div className="evt-sub">{sub}</div>
   </div>
 );
 
@@ -285,14 +101,23 @@ const ContactCard = ({ faIcon, iconColor, label, value, sub }) => (
 
 export default function App() {
   const [scrollY, setScrollY] = useState(0);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setScrollY(window.scrollY);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    const onScroll = () => setScrollY(window.scrollY);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const navScrolled = scrollY > 50;
+  // Close menu on nav link click
+  const closeMenu = () => setMenuOpen(false);
+
+  const navLinks = [
+    { l: "About", i: "fa-solid fa-circle-info" },
+    { l: "Event", i: "fa-solid fa-gamepad" },
+    { l: "Gallery", i: "fa-solid fa-images" },
+    { l: "Contact", i: "fa-solid fa-envelope" },
+  ];
 
   return (
     <div className="app-root">
@@ -300,19 +125,16 @@ export default function App() {
       <div className="bg-grid" />
       {/* ── Scanline ── */}
       <div className="scanline" />
+      {/* ── Corner Brackets ── */}
+      <div className="corner corner-tl" />
+      <div className="corner corner-tr" />
+      <div className="corner corner-bl" />
+      <div className="corner corner-br" />
 
       {/* ══════════════════════════════
           NAV
       ══════════════════════════════ */}
-      <nav
-        className="navbar"
-        style={{
-          background: navScrolled ? "rgba(6,13,24,0.95)" : "transparent",
-          backdropFilter: navScrolled ? "blur(20px)" : "none",
-          borderBottom: navScrolled ? "1px solid #F6304920" : "none",
-        }}
-      >
-        {/* Logo */}
+      <nav className={`navbar${scrollY > 50 ? " navbar--scrolled" : ""}`}>
         <div className="nav-logo">
           <div className="nav-logo-icon">
             <i className="fa-solid fa-shield-halved" />
@@ -323,38 +145,51 @@ export default function App() {
           </div>
         </div>
 
-        {/* Links */}
+        {/* Desktop links */}
         <div className="nav-links">
-          {[
-            { l: "About", i: "fa-solid fa-circle-info" },
-            { l: "Event", i: "fa-solid fa-gamepad" },
-            { l: "Gallery", i: "fa-solid fa-images" },
-            { l: "Contact", i: "fa-solid fa-envelope" },
-          ].map((x) => (
+          {navLinks.map((x) => (
             <a key={x.l} href={`#${x.l.toLowerCase()}`} className="nav-link">
               <i className={x.i} />
               {x.l}
             </a>
           ))}
         </div>
+
+        {/* Hamburger */}
+        <button
+          className="hamburger"
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Toggle menu"
+        >
+          <i className={menuOpen ? "fa-solid fa-xmark" : "fa-solid fa-bars"} />
+        </button>
       </nav>
+
+      {/* Mobile dropdown */}
+      {menuOpen && (
+        <div className="mobile-menu">
+          {navLinks.map((x) => (
+            <a
+              key={x.l}
+              href={`#${x.l.toLowerCase()}`}
+              className="mobile-link"
+              onClick={closeMenu}
+            >
+              <i className={x.i} />
+              {x.l}
+            </a>
+          ))}
+        </div>
+      )}
 
       {/* ══════════════════════════════
           HERO
       ══════════════════════════════ */}
       <section className="hero-section">
-        {/* Glow orbs */}
         <div className="hero-orb hero-orb-left" />
         <div className="hero-orb hero-orb-right" />
 
-        {/* Corner brackets */}
-        <div className="corner corner-tl" />
-        <div className="corner corner-tr" />
-        <div className="corner corner-bl" />
-        <div className="corner corner-br" />
-
         <div className="hero-content">
-          {/* Badge */}
           <div className="hero-badge-wrap">
             <div className="hero-badge">
               <i className="fa-solid fa-star" />
@@ -363,7 +198,6 @@ export default function App() {
             </div>
           </div>
 
-          {/* Title */}
           <div className="hero-title-main">
             <GlitchText text="SILIGURI" />
           </div>
@@ -373,17 +207,11 @@ export default function App() {
           <div className="hero-divider" />
 
           <p className="hero-tagline">
-            <i
-              className="fa-solid fa-crosshairs"
-              style={{ color: "#F63049", marginRight: "0.5rem" }}
-            />
+            <i className="fa-solid fa-crosshairs hero-tagline-icon" />
             An esport LAN in Siliguri to nurture the grassroot of{" "}
-            <span style={{ color: "#F63049", fontWeight: 700 }}>
-              BGMI Esport
-            </span>
+            <span className="hero-tagline-accent">BGMI Esport</span>
           </p>
 
-          {/* CTA buttons */}
           <div className="hero-btns">
             <button className="btn-outline">
               <i className="fa-solid fa-trophy" /> Explore Event
@@ -393,7 +221,6 @@ export default function App() {
             </button>
           </div>
 
-          {/* Scroll cue */}
           <div className="scroll-cue">
             <i className="fa-solid fa-chevron-down anim-float" />
             <span>SCROLL</span>
@@ -424,68 +251,70 @@ export default function App() {
           ABOUT
       ══════════════════════════════ */}
       <section id="about" className="section-pad">
-        <div className="container two-col">
-          {/* Left */}
-          <div>
-            <SectionTag>About Blacksheep Creatives</SectionTag>
-            <h2 className="section-heading">
-              Forging the Future of{" "}
-              <span className="grad-text">Grassroots Esports</span>
-            </h2>
-            <p className="body-text">
-              Blacksheep Creatives is a non-profit esports organization
-              committed to discovering, developing, and celebrating raw talent
-              at the grassroots level. We believe every champion starts as an
-              underdog.
-            </p>
-            <p className="body-text" style={{ marginBottom: "2rem" }}>
-              Based out of Alipurduar, West Bengal, we bridge the gap between
-              passion and professional esports — creating platforms where local
-              talent gets its first taste of LAN competition.
-            </p>
-            <div className="tag-row">
-              {[
-                { icon: "fa-solid fa-heart", label: "Non-Profit Org" },
-                { icon: "fa-solid fa-location-dot", label: "Alipurduar, WB" },
-                { icon: "fa-solid fa-gamepad", label: "BGMI Focused" },
-                { icon: "fa-solid fa-people-group", label: "Community First" },
-              ].map((t) => (
-                <span key={t.label} className="tag-chip">
-                  <i className={t.icon} />
-                  {t.label}
-                </span>
-              ))}
+        <div className="container">
+          <div className="two-col">
+            <div>
+              <SectionTag>About Blacksheep Creatives</SectionTag>
+              <h2 className="section-heading">
+                Forging the Future of{" "}
+                <span className="grad-text">Grassroots Esports</span>
+              </h2>
+              <p className="body-text">
+                Blacksheep Creatives is a non-profit esports organization
+                committed to discovering, developing, and celebrating raw talent
+                at the grassroots level. We believe every champion starts as an
+                underdog.
+              </p>
+              <p className="body-text">
+                Based out of Alipurduar, West Bengal, we bridge the gap between
+                passion and professional esports — creating platforms where
+                local talent gets its first taste of LAN competition.
+              </p>
+              <div className="tag-row">
+                {[
+                  { icon: "fa-solid fa-heart", label: "Non-Profit Org" },
+                  { icon: "fa-solid fa-location-dot", label: "Alipurduar, WB" },
+                  { icon: "fa-solid fa-gamepad", label: "BGMI Focused" },
+                  {
+                    icon: "fa-solid fa-people-group",
+                    label: "Community First",
+                  },
+                ].map((t) => (
+                  <span key={t.label} className="tag-chip">
+                    <i className={t.icon} />
+                    {t.label}
+                  </span>
+                ))}
+              </div>
             </div>
-          </div>
-
-          {/* Right — stat grid */}
-          <div className="stat-grid">
-            <StatCard
-              value="₹50K"
-              label="Prize Pool"
-              faIcon="fa-solid fa-sack-dollar"
-            />
-            <StatCard
-              value="250+"
-              label="Attendees"
-              faIcon="fa-solid fa-users"
-            />
-            <StatCard
-              value="S01"
-              label="Season One"
-              faIcon="fa-solid fa-medal"
-            />
-            <StatCard
-              value="100%"
-              label="Non-Profit"
-              faIcon="fa-solid fa-heart"
-            />
+            <div className="stat-grid">
+              <StatCard
+                value="₹50K"
+                label="Prize Pool"
+                faIcon="fa-solid fa-sack-dollar"
+              />
+              <StatCard
+                value="250+"
+                label="Attendees"
+                faIcon="fa-solid fa-users"
+              />
+              <StatCard
+                value="S01"
+                label="Season One"
+                faIcon="fa-solid fa-medal"
+              />
+              <StatCard
+                value="100%"
+                label="Non-Profit"
+                faIcon="fa-solid fa-heart"
+              />
+            </div>
           </div>
         </div>
       </section>
 
       {/* ══════════════════════════════
-          EVENT DETAILS
+          EVENT
       ══════════════════════════════ */}
       <section id="event" className="section-pad section-dim">
         <div className="container">
@@ -497,57 +326,32 @@ export default function App() {
             </h2>
           </div>
 
-          {/* Event info cards */}
-          <div className="three-col" style={{ marginBottom: "3rem" }}>
-            {[
-              {
-                icon: "fa-solid fa-trophy",
-                color: "#FFD700",
-                title: "Prize Pool",
-                value: "₹50,000",
-                sub: "Total Winnings",
-              },
-              {
-                icon: "fa-solid fa-users",
-                color: "#F63049",
-                title: "Attendees",
-                value: "250+",
-                sub: "Players, Fans & Crew",
-              },
-              {
-                icon: "fa-solid fa-map-pin",
-                color: "#D02752",
-                title: "Venue",
-                value: "Rishi Bhawan",
-                sub: "Siliguri, Darjeeling",
-              },
-            ].map((c, i) => (
-              <div key={i} className="evt-card">
-                <div
-                  className="evt-icon-wrap"
-                  style={{
-                    background: `${c.color}18`,
-                    border: `1px solid ${c.color}40`,
-                  }}
-                >
-                  <i
-                    className={c.icon}
-                    style={{ color: c.color, fontSize: "1.5rem" }}
-                  />
-                </div>
-                <div className="evt-label">{c.title}</div>
-                <div className="evt-value">{c.value}</div>
-                <div className="evt-sub">{c.sub}</div>
-              </div>
-            ))}
+          <div className="three-col mb-3">
+            <EventCard
+              icon="fa-solid fa-trophy"
+              iconColor="#FFD700"
+              title="Prize Pool"
+              value="₹50,000"
+              sub="Total Winnings"
+            />
+            <EventCard
+              icon="fa-solid fa-users"
+              iconColor="#F63049"
+              title="Attendees"
+              value="250+"
+              sub="Players, Fans & Crew"
+            />
+            <EventCard
+              icon="fa-solid fa-map-pin"
+              iconColor="#D02752"
+              title="Venue"
+              value="Rishi Bhawan"
+              sub="Siliguri, Darjeeling"
+            />
           </div>
 
-          {/* Venue strip */}
           <div className="venue-strip">
-            <i
-              className="fa-solid fa-location-dot"
-              style={{ color: "#F63049", fontSize: "1.5rem" }}
-            />
+            <i className="fa-solid fa-location-dot venue-icon" />
             <div>
               <div className="venue-label">Event Venue</div>
               <div className="venue-name">
@@ -570,72 +374,31 @@ export default function App() {
             </h2>
           </div>
           <div className="bento-grid">
-            <PlaceholderImage
-              label="LAN Playing Area"
-              style={{
-                gridColumn: "1/3",
-                gridRow: "1/2",
-                borderRadius: 4,
-                minHeight: "unset",
-              }}
-            />
-            <PlaceholderImage
-              label="Front of Venue"
-              style={{
-                gridColumn: "3/4",
-                gridRow: "1/2",
-                borderRadius: 4,
-                minHeight: "unset",
-              }}
-            />
+            <PlaceholderImage label="LAN Playing Area" className="bento-a" />
+            <PlaceholderImage label="Front of Venue" className="bento-b" />
             <PlaceholderImage
               label="Most Appreciated Poster"
-              style={{
-                gridColumn: "1/2",
-                gridRow: "2/3",
-                borderRadius: 4,
-                minHeight: "unset",
-              }}
+              className="bento-c"
             />
-            <PlaceholderImage
-              label="Audience & Crowd"
-              style={{
-                gridColumn: "2/4",
-                gridRow: "2/3",
-                borderRadius: 4,
-                minHeight: "unset",
-              }}
-            />
+            <PlaceholderImage label="Audience & Crowd" className="bento-d" />
           </div>
         </div>
       </section>
 
       {/* ══════════════════════════════
-          INSTAGRAM REACH
+          INSTAGRAM
       ══════════════════════════════ */}
       <section className="section-pad">
         <div className="container">
           <div className="section-header">
             <SectionTag>Social Media Impact</SectionTag>
-            <h2
-              className="section-heading"
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                gap: "0.75rem",
-              }}
-            >
-              <i
-                className="fa-brands fa-instagram"
-                style={{ color: "#E1306C" }}
-              />
+            <h2 className="section-heading ig-heading">
+              <i className="fa-brands fa-instagram ig-icon" />
               Instagram <span className="grad-text">Reach</span>
             </h2>
           </div>
 
-          {/* Stats */}
-          <div className="four-col" style={{ marginBottom: "3rem" }}>
+          <div className="four-col mb-3">
             {[
               { icon: "fa-solid fa-eye", label: "Impressions" },
               { icon: "fa-solid fa-heart", label: "Likes" },
@@ -643,88 +406,71 @@ export default function App() {
               { icon: "fa-solid fa-share-nodes", label: "Shares" },
             ].map((s, i) => (
               <div key={i} className="ig-stat-card">
-                <i
-                  className={s.icon}
-                  style={{
-                    fontSize: "1.4rem",
-                    color: "#F63049",
-                    marginBottom: "0.5rem",
-                    display: "block",
-                  }}
-                />
+                <i className={s.icon} />
                 <div className="ig-stat-val">—</div>
                 <div className="ig-stat-label">{s.label}</div>
               </div>
             ))}
           </div>
 
-          {/* IG image grid */}
           <div className="four-col">
             {["IG Post #1", "IG Post #2", "IG Story", "IG Reel"].map((l, i) => (
-              <PlaceholderImage
-                key={i}
-                label={l}
-                style={{ aspectRatio: "1", minHeight: 200, borderRadius: 4 }}
-              />
+              <PlaceholderImage key={i} label={l} className="ig-img" />
             ))}
           </div>
         </div>
       </section>
 
       {/* ══════════════════════════════
-          LAN STREAM SETUP
+          LAN STREAM
       ══════════════════════════════ */}
       <section className="section-pad">
-        <div className="container two-col">
-          <div>
-            <SectionTag>Production Setup</SectionTag>
-            <h2 className="section-heading">
-              LAN Stream <span className="grad-text">Setup</span>
-            </h2>
-            <p className="body-text" style={{ marginBottom: "1.75rem" }}>
-              Professional broadcasting infrastructure brought the Siliguri
-              Underdog's Cup live to screens beyond the venue — connecting the
-              wider BGMI community to every clutch play.
-            </p>
-            <div className="feature-list">
-              {[
-                {
-                  icon: "fa-solid fa-video",
-                  text: "Multi-camera LAN streaming rig",
-                },
-                {
-                  icon: "fa-solid fa-microphone",
-                  text: "Live commentary & caster booth",
-                },
-                {
-                  icon: "fa-solid fa-satellite-dish",
-                  text: "Real-time broadcast over social media",
-                },
-                {
-                  icon: "fa-solid fa-lightbulb",
-                  text: "Professional stage lighting setup",
-                },
-              ].map((x, i) => (
-                <div key={i} className="feature-item">
-                  <HexIcon faIcon={x.icon} />
-                  <span className="feature-text">{x.text}</span>
-                </div>
-              ))}
+        <div className="container">
+          <div className="two-col">
+            <div>
+              <SectionTag>Production Setup</SectionTag>
+              <h2 className="section-heading">
+                LAN Stream <span className="grad-text">Setup</span>
+              </h2>
+              <p className="body-text stream-body">
+                Professional broadcasting infrastructure brought the Siliguri
+                Underdog's Cup live to screens beyond the venue — connecting the
+                wider BGMI community to every clutch play.
+              </p>
+              <div className="feature-list">
+                {[
+                  {
+                    icon: "fa-solid fa-video",
+                    text: "Multi-camera LAN streaming rig",
+                  },
+                  {
+                    icon: "fa-solid fa-microphone",
+                    text: "Live commentary & caster booth",
+                  },
+                  {
+                    icon: "fa-solid fa-satellite-dish",
+                    text: "Real-time broadcast over social media",
+                  },
+                  {
+                    icon: "fa-solid fa-lightbulb",
+                    text: "Professional stage lighting setup",
+                  },
+                ].map((x, i) => (
+                  <div key={i} className="feature-item">
+                    <HexIcon faIcon={x.icon} />
+                    <span className="feature-text">{x.text}</span>
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
-          <div className="stream-img-grid">
-            <PlaceholderImage
-              label="Stream Station"
-              style={{ gridColumn: "1/3", minHeight: 200, borderRadius: 4 }}
-            />
-            <PlaceholderImage
-              label="Caster Booth"
-              style={{ minHeight: 160, borderRadius: 4 }}
-            />
-            <PlaceholderImage
-              label="Broadcast Rig"
-              style={{ minHeight: 160, borderRadius: 4 }}
-            />
+            <div className="stream-img-grid">
+              <PlaceholderImage
+                label="Stream Station"
+                className="stream-main"
+              />
+              <PlaceholderImage label="Caster Booth" className="stream-sm" />
+              <PlaceholderImage label="Broadcast Rig" className="stream-sm" />
+            </div>
           </div>
         </div>
       </section>
@@ -733,10 +479,7 @@ export default function App() {
           CHAMPIONS
       ══════════════════════════════ */}
       <section className="section-pad champions-section">
-        <div
-          className="container"
-          style={{ maxWidth: 900, textAlign: "center" }}
-        >
+        <div className="container champions-container">
           <SectionTag>Champions</SectionTag>
           <h2 className="section-heading">
             Season 1 <span className="grad-text">Champions</span>
@@ -749,23 +492,16 @@ export default function App() {
           <div className="champ-img-wrap">
             <PlaceholderImage
               label="Oxygen Esport — Champions Photo"
-              style={{ minHeight: 400, borderRadius: 8 }}
+              className="champ-photo"
             />
             <div className="champ-badge">
               <i className="fa-solid fa-trophy" /> WINNERS
             </div>
           </div>
           <div className="champ-quote">
-            <i
-              className="fa-solid fa-quote-left"
-              style={{ color: "#FFD70060" }}
-            />
-            &nbsp;Champions crowned at Siliguri's first grassroots BGMI LAN
-            event&nbsp;
-            <i
-              className="fa-solid fa-quote-right"
-              style={{ color: "#FFD70060" }}
-            />
+            <i className="fa-solid fa-quote-left champ-quote-icon" />
+            Champions crowned at Siliguri's first grassroots BGMI LAN event
+            <i className="fa-solid fa-quote-right champ-quote-icon" />
           </div>
         </div>
       </section>
@@ -774,18 +510,18 @@ export default function App() {
           CONTACT
       ══════════════════════════════ */}
       <section id="contact" className="section-pad">
-        <div className="container" style={{ maxWidth: 1000 }}>
+        <div className="container contact-container">
           <div className="section-header">
             <SectionTag>Connect With Us</SectionTag>
             <h2 className="section-heading">
               Get In <span className="grad-text">Touch</span>
             </h2>
-            <p className="body-text" style={{ marginTop: "1rem" }}>
+            <p className="body-text contact-sub">
               Ready to compete or collaborate? We'd love to hear from you.
             </p>
           </div>
 
-          <div className="three-col" style={{ marginBottom: "4rem" }}>
+          <div className="three-col mb-4">
             <ContactCard
               faIcon="fa-brands fa-instagram"
               iconColor="#E1306C"
@@ -809,13 +545,9 @@ export default function App() {
             />
           </div>
 
-          {/* Social buttons */}
-          <div style={{ textAlign: "center" }}>
+          <div className="social-section">
             <p className="follow-label">
-              <i
-                className="fa-solid fa-share-nodes"
-                style={{ color: "#F6304960" }}
-              />
+              <i className="fa-solid fa-share-nodes follow-icon" />
               Follow Our Journey
             </p>
             <div className="social-row">
@@ -842,10 +574,7 @@ export default function App() {
                 },
               ].map((s, i) => (
                 <button key={i} className="social-btn" title={s.label}>
-                  <i
-                    className={s.icon}
-                    style={{ color: s.color, fontSize: "1.2rem" }}
-                  />
+                  <i className={s.icon} style={{ color: s.color }} />
                 </button>
               ))}
             </div>
@@ -858,13 +587,9 @@ export default function App() {
       ══════════════════════════════ */}
       <footer className="footer">
         <div className="container footer-inner">
-          {/* Logo */}
           <div className="footer-logo">
             <div className="footer-logo-icon">
-              <i
-                className="fa-solid fa-shield-halved"
-                style={{ color: "#fff", fontSize: "1.3rem" }}
-              />
+              <i className="fa-solid fa-shield-halved" />
             </div>
             <div>
               <div className="footer-brand">BLACKSHEEP CREATIVES</div>
@@ -877,14 +602,10 @@ export default function App() {
           <div className="footer-divider" />
 
           <div className="footer-location">
-            <i
-              className="fa-solid fa-location-dot"
-              style={{ color: "#F6304960" }}
-            />
+            <i className="fa-solid fa-location-dot footer-loc-icon" />
             Alipurduar, West Bengal, India
           </div>
 
-          {/* Footer socials */}
           <div className="footer-socials">
             {[
               { icon: "fa-brands fa-instagram", color: "#E1306C" },
