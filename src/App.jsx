@@ -186,8 +186,12 @@ export default function App() {
           HERO
       ══════════════════════════════ */}
       <section className="hero-section">
-        <div className="hero-orb hero-orb-left" />
-        <div className="hero-orb hero-orb-right" />
+        {/* <div className="hero-orb hero-orb-left" />
+        <div className="hero-orb hero-orb-right" /> */}
+        <div className="hero-corner hero-corner-tl" />
+        <div className="hero-corner hero-corner-tr" />
+        <div className="hero-corner hero-corner-bl" />
+        <div className="hero-corner hero-corner-br" />
 
         <div className="hero-content">
           <div className="hero-badge-wrap">

@@ -160,7 +160,48 @@ body {
 /* ══════════════════════════════════════════
       CORNER BRACKETS (fixed to viewport)
    ══════════════════════════════════════════ */
-.corner {
+
+/* HERO ONLY CORNERS */
+.hero-corner {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  z-index: 5;
+  pointer-events: none;
+}
+
+/* Top Left */
+.hero-corner-tl {
+  top: 100px; /* below navbar */
+  left: 40px;
+  border-top: 2px solid #f63049;
+  border-left: 2px solid #f63049;
+}
+
+/* Top Right */
+.hero-corner-tr {
+  top: 100px;
+  right: 40px;
+  border-top: 2px solid #f63049;
+  border-right: 2px solid #f63049;
+}
+
+/* Bottom Left */
+.hero-corner-bl {
+  bottom: 40px;
+  left: 40px;
+  border-bottom: 2px solid #f63049;
+  border-left: 2px solid #f63049;
+}
+
+/* Bottom Right */
+.hero-corner-br {
+  bottom: 40px;
+  right: 40px;
+  border-bottom: 2px solid #f63049;
+  border-right: 2px solid #f63049;
+}
+/* .corner {
   position: fixed;
   width: 40px;
   height: 40px;
@@ -190,7 +231,7 @@ body {
   right: 20px;
   border-bottom: 2px solid #f63049;
   border-right: 2px solid #f63049;
-}
+} */
 
 /* ══════════════════════════════════════════
       NAVBAR
