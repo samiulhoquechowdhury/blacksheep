@@ -77,7 +77,7 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
   position: relative;
-  /* zoom: 1.15; */
+  /* zoom: 1.1; */
 }
 .container {
   max-width: 1200px;
@@ -164,8 +164,8 @@ body {
 /* HERO ONLY CORNERS */
 .hero-corner {
   position: absolute;
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   z-index: 5;
   pointer-events: none;
 }
@@ -275,12 +275,12 @@ body {
 .nav-brand {
   font-family: "Orbitron", sans-serif;
   font-weight: 700;
-  font-size: 0.85rem;
+  font-size: 1rem;
   color: #fff;
   letter-spacing: 0.1em;
 }
 .nav-sub {
-  font-size: 0.55rem;
+  font-size: 1rem;
   color: #f63049;
   letter-spacing: 0.25em;
   text-transform: uppercase;
@@ -293,7 +293,7 @@ body {
 .nav-link {
   color: #aaa;
   text-decoration: none;
-  font-size: 0.72rem;
+  font-size: 0.82rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
   font-family: "Rajdhani", sans-serif;
@@ -423,7 +423,7 @@ body {
   padding: 0.35rem 1.5rem;
   border: 1px solid #f6304960;
   background: #f6304910;
-  font-size: 0.65rem;
+  font-size: 0.85rem;
   letter-spacing: 0.3em;
   color: #f63049;
   font-family: "Share Tech Mono", monospace;
